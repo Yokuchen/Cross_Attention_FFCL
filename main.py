@@ -10,6 +10,11 @@ from nltk.corpus import stopwords
 import model
 import threading
 import tensorflow as tf
+import nltk
+
+
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 
 # Preprocessing
@@ -21,6 +26,7 @@ print_lock = threading.Lock()
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 
 gpus = tf.config.experimental.list_physical_devices('GPU')
+
 if gpus:
     try:
         for gpu in gpus:
@@ -50,7 +56,7 @@ def preprocess(text):
     return ' '.join(tokens)
 
 
-data = load_dataset("dataset/test_interview.csv", sentence_col_idx=1, label_col_idx=2)
+data = load_dataset("dataset/spam_mod.csv", sentence_col_idx=1, label_col_idx=2)
 data = data[pd.to_numeric(data['label'], errors='coerce').notna()]
 data['label'] = data['label'].astype(int)
 print(data.head())
@@ -95,6 +101,7 @@ for is_attention in [False, True]:
             safe_print(
                 f"Model (Attention={is_attention},"
                 f" Bidirectional={is_bidirectional}) - Accuracy: {scores[1] * 100:.2f}%")
+        test_CP1 = True
 
 # Determine and display the best result
 best_config = max(results, key=lambda k: np.mean(results[k]))
