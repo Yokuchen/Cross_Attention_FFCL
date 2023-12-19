@@ -37,9 +37,18 @@ def lstm(vocab, hidden_units, num_layers, max_sequence_length, is_attention, is_
             model.add(Bidirectional(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
                                          kernel_initializer=initializers.glorot_normal(seed=777),
                                          bias_initializer='zeros')))
+            if is_attention:
+                model.add(AttentionWithContext())
+                model.add(Bidirectional(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
+                                             kernel_initializer=initializers.glorot_normal(seed=777),
+                                             bias_initializer='zeros')))
         else:
             model.add(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
                            kernel_initializer=initializers.glorot_normal(seed=777), bias_initializer='zeros'))
+            if is_attention:
+                model.add(AttentionWithContext())
+                model.add(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
+                               kernel_initializer=initializers.glorot_normal(seed=777), bias_initializer='zeros'))
 
     if is_attention:
         model.add(AttentionWithContext())
@@ -244,7 +253,7 @@ if __name__ == "__main__":
     X_test, y_test = generate_mockup_data(NUM_SAMPLES, VOCAB_SIZE, MAX_SEQUENCE_LENGTH)
 
     # Get the model
-    model = lstm(range(VOCAB_SIZE), HIDDEN_UNITS, NUM_LAYERS, MAX_SEQUENCE_LENGTH, IS_ATTENTION, IS_BIDIRECTIONAL)
+    model = lstm(range(VOCAB_SIZE), HIDDEN_UNITS, NUM_LAYERS, MAX_SEQUENCE_LENGTH, IS_ATTENTION, IS_BIDIRECTIONAL, 2)
 
     # Train the model
     model.fit(X_train, y_train, batch_size=32, epochs=5, validation_data=(X_test, y_test))

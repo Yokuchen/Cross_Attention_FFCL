@@ -86,7 +86,7 @@ for is_attention in [False, True]:
             # Instantiate model
             model_instance = model.lstm(vocab=tokenizer.word_index,
                                         hidden_units=128,
-                                        num_layers=3,
+                                        num_layers=1,
                                         max_sequence_length=MAX_LEN,
                                         is_attention=is_attention,
                                         is_bidirectional=is_bidirectional,
