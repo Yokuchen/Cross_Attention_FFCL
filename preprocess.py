@@ -1,8 +1,9 @@
 from utils import *
 
 
-input_file = 'dataset/spam.csv'
-output_file = 'dataset/spam_mod.csv'
+input_file = 'dataset/subreddit.csv'
+output_file = 'dataset/subreddit_mod.csv'
 
 # Convert the CSV file
-convert_csv(input_file, output_file)
+# convert_csv(input_file, output_file)
+convert_subreddit(input_file, output_file)

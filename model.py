@@ -16,7 +16,7 @@ from keras import constraints
 ##############################################
 
 
-def lstm(vocab, hidden_units, num_layers, max_sequence_length, is_attention, is_bidirectional, classes):
+def lstm(vocab, hidden_units, num_layers, max_sequence_length, is_attention, is_bidirectional, classes, attention_con):
     timesteps = max_sequence_length
     num_classes = classes
 
@@ -28,7 +28,7 @@ def lstm(vocab, hidden_units, num_layers, max_sequence_length, is_attention, is_
     adam = optimizers.Adam(learning_rate=lr_schedule)
 
     model = Sequential()
-    model.add(Embedding(len(vocab)+1, 100, input_length=35))
+    model.add(Embedding(len(vocab)+1, 300, input_length=100))
 
     for i in range(num_layers):
         return_sequences = is_attention or (num_layers > 1 and i < num_layers - 1)
@@ -37,7 +37,7 @@ def lstm(vocab, hidden_units, num_layers, max_sequence_length, is_attention, is_
             model.add(Bidirectional(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
                                          kernel_initializer=initializers.glorot_normal(seed=777),
                                          bias_initializer='zeros')))
-            if is_attention:
+            if attention_con:
                 model.add(AttentionWithContext())
                 model.add(Bidirectional(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
                                              kernel_initializer=initializers.glorot_normal(seed=777),
@@ -45,7 +45,7 @@ def lstm(vocab, hidden_units, num_layers, max_sequence_length, is_attention, is_
         else:
             model.add(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
                            kernel_initializer=initializers.glorot_normal(seed=777), bias_initializer='zeros'))
-            if is_attention:
+            if attention_con:
                 model.add(AttentionWithContext())
                 model.add(LSTM(hidden_units, return_sequences=return_sequences, dropout=0.2,
                                kernel_initializer=initializers.glorot_normal(seed=777), bias_initializer='zeros'))
