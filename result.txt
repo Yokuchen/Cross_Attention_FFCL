@@ -1,0 +1,73 @@
+__________________________________________________________________________________________________
+ Layer (type)                Output Shape                 Param #   Connected to                  
+==================================================================================================
+ input_1 (InputLayer)        [(None, 50)]                 0         []                            
+                                                                                                  
+ embedding (Embedding)       (None, 50, 100)              1000000   ['input_1[0][0]']             
+                                                                                                  
+ conv1d (Conv1D)             (None, 50, 32)               9632      ['embedding[0][0]']           
+                                                                                                  
+ max_pooling1d (MaxPooling1  (None, 25, 32)               0         ['conv1d[0][0]']              
+ D)                                                                                               
+                                                                                                  
+ conv1d_1 (Conv1D)           (None, 25, 64)               6208      ['max_pooling1d[0][0]']       
+                                                                                                  
+ max_pooling1d_1 (MaxPoolin  (None, 12, 64)               0         ['conv1d_1[0][0]']            
+ g1D)                                                                                             
+                                                                                                  
+ bidirectional (Bidirection  (None, 50, 512)              731136    ['embedding[0][0]']           
+ al)                                                                                              
+                                                                                                  
+ conv1d_2 (Conv1D)           (None, 12, 128)              24704     ['max_pooling1d_1[0][0]']     
+                                                                                                  
+ attention_with_context (At  (None, 50, 512)              263168    ['bidirectional[0][0]']       
+ tentionWithContext)                                                                              
+                                                                                                  
+ max_pooling1d_2 (MaxPoolin  (None, 6, 128)               0         ['conv1d_2[0][0]']            
+ g1D)                                                                                             
+                                                                                                  
+ dense (Dense)               (None, 50, 128)              65664     ['attention_with_context[0][0]
+                                                                    ']                            
+                                                                                                  
+ dot (Dot)                   (None, 6, 50)                0         ['max_pooling1d_2[0][0]',     
+                                                                     'dense[0][0]']               
+                                                                                                  
+ dot_1 (Dot)                 (None, 50, 6)                0         ['dense[0][0]',               
+                                                                     'max_pooling1d_2[0][0]']     
+                                                                                                  
+ softmax (Softmax)           (None, 6, 50)                0         ['dot[0][0]']                 
+                                                                                                  
+ softmax_1 (Softmax)         (None, 50, 6)                0         ['dot_1[0][0]']               
+                                                                                                  
+ tf.expand_dims (TFOpLambda  (None, 6, 50, 1)             0         ['softmax[0][0]']             
+ )                                                                                                
+                                                                                                  
+ tf.expand_dims_1 (TFOpLamb  (None, 1, 50, 128)           0         ['dense[0][0]']               
+ da)                                                                                              
+                                                                                                  
+ tf.expand_dims_2 (TFOpLamb  (None, 50, 6, 1)             0         ['softmax_1[0][0]']           
+ da)                                                                                              
+                                                                                                  
+ tf.expand_dims_3 (TFOpLamb  (None, 1, 6, 128)            0         ['max_pooling1d_2[0][0]']     
+ da)                                                                                              
+                                                                                                  
+ multiply (Multiply)         (None, 6, 50, 128)           0         ['tf.expand_dims[0][0]',      
+                                                                     'tf.expand_dims_1[0][0]']    
+                                                                                                  
+ multiply_1 (Multiply)       (None, 50, 6, 128)           0         ['tf.expand_dims_2[0][0]',    
+                                                                     'tf.expand_dims_3[0][0]']    
+                                                                                                  
+ tf.math.reduce_sum (TFOpLa  (None, 6, 128)               0         ['multiply[0][0]']            
+ mbda)                                                                                            
+                                                                                                  
+ tf.math.reduce_sum_1 (TFOp  (None, 50, 128)              0         ['multiply_1[0][0]']          
+ Lambda)                                                                                          
+                                                                                                  
+ flatten (Flatten)           (None, 768)                  0         ['tf.math.reduce_sum[0][0]']  
+                                                                                                  
+ flatten_1 (Flatten)         (None, 6400)                 0         ['tf.math.reduce_sum_1[0][0]']
+                                                                                                  
+ concatenate (Concatenate)   (None, 7168)                 0         ['flatten[0][0]',             
+                                                                     'flatten_1[0][0]']           
+                                                                                                  
+ dense_1 (Dense)             (None, 2)                    14338     ['concatenate[0][0]']  

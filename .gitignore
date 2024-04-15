@@ -2,3 +2,7 @@
 .idea
 __pycache__
 test.py
+/dataset/
+/img/bias/
+/metadata.tsv
+/vectors.tsv
