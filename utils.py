@@ -102,7 +102,6 @@ def filter(data_pth, save_pth, filter_list):
     female_words_lower = [word.lower() for word in female_words]
 
     # Filter sentences that contain words from either list
-    # We'll use a case-insensitive search for matches within the text
     filtered_data = data[data['text'].str.lower().apply(
         lambda text: any(word in text for word in male_words_lower + female_words_lower))]
 

@@ -268,22 +268,17 @@ if __name__ == "__main__":
     # if is_bidirectional and is_attention:
     #     visualize_attention_indices(model_A_connect, model_A_out, X_test, tokenizer.word_index, subreddit_test)
 
-    # Step 1: Make predictions
-
     predictions_proba = model_instance.predict(X_test)
     predictions = np.argmax(predictions_proba, axis=1)
     true_labels = np.argmax(y_test, axis=1)
 
-    # Step 2: Identify misclassified instances
+    # Identify misclassified instances
     misclassified_indices = np.where(predictions != true_labels)[0]
 
-    # For visualization, if you want to analyze a subset (e.g., up to 10 misclassified instances)
     num_samples = min(10, len(misclassified_indices))
     selected_misclassified_indices = np.random.choice(misclassified_indices, num_samples, replace=False)
     manual_select = [811]
 
-    # Assuming visualize_attention_indices() is ready to accept indices directly
-    # You may need to adjust the function definition to accommodate this use case if not already designed to do so
     # print(X_test[selected_misclassified_indices])
     # print(selected_misclassified_indices)
     if is_bidirectional and is_attention:

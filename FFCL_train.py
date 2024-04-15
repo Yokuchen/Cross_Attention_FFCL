@@ -114,8 +114,8 @@ if __name__ == "__main__":
     tokenizer = Tokenizer()
     # 'sentence', 'text'
     tokenizer.fit_on_texts(data['sentence'])
-    vocab_size = len(tokenizer.word_index) + 1  # Adding 1 because index 0 is reserved
-    embedding_dim = 100  # Assuming your Word2Vec vectors have dimensionality of 100
+    vocab_size = len(tokenizer.word_index) + 1
+    embedding_dim = 100
 
     # X = tokenizer.texts_to_sequences(data['sentence'])
     # X = pad_sequences(X, maxlen=MAX_LEN)
