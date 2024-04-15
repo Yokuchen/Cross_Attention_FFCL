@@ -3,16 +3,17 @@
 ### Cross-Attention Bidirectional CNN-LSTM Network for text classification
 
 #####  Base Contextual-Attention BiLSTM
-<img src="img/LSTM.png" align="center" width="450"></p>
+<img src="img/LSTM.png" align="center" width="370"></p>
 
-##### Sequential CNN-LSTM
-<img src="img/CNN-LSTM-S.png" align="center" width="450"></p>
 
-##### Parallel Cross-Attention CNN-LSTM
-<img src="img/CNN-LSTM-P.png" align="center" width="450"></p>
+##### Sequential/Parallel Cross-Attention CNN-LSTM
+<p align="left"><img src="img/CNN-LSTM-S.png" align="center" width="300" height="450">
+<img src="img/CNN-LSTM-P.png" align="center" width="300" height="450"></p>
+
+
 
 ##### Word Embedding Space
-<img src="img/emb.gif" align="center" width="450"></p>
+<p align="left"> <img src="img/emb.gif" align="center" width="450"></p>
 
 ### Visualized Attention weight map </p>
 <p align="center"><img src="img/sample40.png" align="center" width="400" height="225">
