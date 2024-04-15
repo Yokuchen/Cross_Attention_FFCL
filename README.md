@@ -7,8 +7,8 @@
 
 
 ##### Sequential/Parallel Cross-Attention CNN-LSTM
-<p align="left"><img src="img/CNN-LSTM-S.png" align="center" width="300" height="450">
-<img src="img/CNN-LSTM-P.png" align="center" width="300" height="450"></p>
+<p align="left"><img src="img/CNN-LSTM-S.png" align="center" width="360" height="540">
+<img src="img/CNN-LSTM-P.png" align="center" width="360" height="540"></p>
 
 
 
